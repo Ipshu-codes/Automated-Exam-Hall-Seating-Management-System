@@ -3,27 +3,28 @@
 
 #include <string>
 
-using namespace std;
-
 class Student
 {
 private:
     int rollNo;
-    string name;
-    string department;
+    std::string name;
+    std::string department;
     int semester;
     char section;
 
 public:
     Student();
-    Student(int roll, string n, string dept, int sem, char sec);
 
-    int getRollNo();
-    string getName();
-    string getDepartment();
-    int getSemester();
-    char getSection();
+    Student(int roll, std::string n, std::string dept,
+            int sem, char sec);
 
-    void display();
+    int getRollNo() const;
+    std::string getName() const;
+    std::string getDepartment() const;
+    int getSemester() const;
+    char getSection() const;
+
+    void display() const;
 };
 
+#endif
