@@ -3,21 +3,24 @@
 
 #include <string>
 
-using namespace std;
-
 class Room
 {
 private:
-    string roomNo;
+    std::string roomNo;
     int rows;
     int cols;
     int capacity;
 
 public:
     Room();
-    Room(string no, int r, int c);
+    Room(std::string no, int r, int c);
 
-    void display();
+    std::string getRoomNo() const;
+    int getRows() const;
+    int getCols() const;
+    int getCapacity() const;
+
+    void display() const;
 };
-#endif
 
+#endif
