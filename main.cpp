@@ -1,16 +1,27 @@
+#include "SeatingManager.h"
 #include <iostream>
-#include "Student.h"
 
 int main()
 {
-    Student s1("THA082BCT027", "Ipshu");
-    Student s2("THA082BEI014", "Anisha");
+    SeatingManager manager;
 
-    s1.display();
+    std::cout << "========================================\n";
+    std::cout << "     SMART EXAM SEATING SYSTEM\n";
+    std::cout << "========================================\n";
 
-    std::cout << "------------------" << std::endl;
+    manager.inputStudents();
 
-    s2.display();
+    manager.inputRoom();
+
+    if (!manager.checkCapacity())
+    {
+        std::cout << "\nERROR: Not enough seats!\n";
+        return 0;
+    }
+
+    manager.generateSeating();
+
+    manager.displaySeating();
 
     return 0;
 }

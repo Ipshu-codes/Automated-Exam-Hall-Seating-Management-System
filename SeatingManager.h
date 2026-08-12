@@ -3,23 +3,29 @@
 
 #include <vector>
 #include "Student.h"
-#include "Room.h"
-
-using namespace std;
+#include "Seat.h"
 
 class SeatingManager
 {
 private:
-    vector<Student> students;
-    vector<Room> rooms;
+    std::vector<Student> students;
+    std::vector<Seat> seats;
+
+    int numberOfBenches;
+
+    static const int STUDENTS_PER_BENCH = 3;
 
 public:
-    void loadStudents();
-    void loadRooms();
+    SeatingManager();
+
+    void inputStudents();
+    void inputRoom();
+
+    bool checkCapacity() const;
 
     void generateSeating();
 
-    void displaySeating();
+    void displaySeating() const;
 };
 
 #endif

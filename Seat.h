@@ -6,19 +6,24 @@
 class Seat
 {
 private:
-    int row;
-    int col;
-    bool occupied;
+    int benchNo;
+    int position;
     Student* student;
 
 public:
     Seat();
+    Seat(int bench, int pos);
 
     void assignStudent(Student* s);
 
-    bool isOccupied();
+    bool isOccupied() const;
 
-    void display();
+    int getBenchNo() const;
+    int getPosition() const;
+
+    Student* getStudent() const;
+
+    void display() const;
 };
 
 #endif
