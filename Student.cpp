@@ -4,16 +4,13 @@
 Student::Student()
 {
     rollNo = "";
-    name = "";
     department = "";
 }
 
-Student::Student(std::string roll, std::string n)
+Student::Student(std::string roll)
 {
     rollNo = roll;
-    name = n;
 
-    // Extract department from roll number
     if (roll.length() >= 9)
     {
         department = roll.substr(6, 3);
@@ -29,11 +26,6 @@ std::string Student::getRollNo() const
     return rollNo;
 }
 
-std::string Student::getName() const
-{
-    return name;
-}
-
 std::string Student::getDepartment() const
 {
     return department;
@@ -42,6 +34,5 @@ std::string Student::getDepartment() const
 void Student::display() const
 {
     std::cout << "Roll No: " << rollNo << std::endl;
-    std::cout << "Name: " << name << std::endl;
     std::cout << "Department: " << department << std::endl;
 }

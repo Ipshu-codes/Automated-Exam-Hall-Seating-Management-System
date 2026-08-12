@@ -15,21 +15,16 @@ void SeatingManager::inputStudents()
 
     for (int i = 0; i < numberOfStudents; i++)
     {
-        std::cin.ignore();
-        std::string name;
         std::string rollNo;
 
         std::cout << "\nStudent " << i + 1 << std::endl;
-         std::cout << "Enter name: ";
-         std::getline(std::cin, name);
 
         std::cout << "Enter roll number: ";
         std::cin >> rollNo;
 
-        students.push_back(Student(rollNo, name));
+        students.push_back(Student(rollNo));
     }
 }
-
 void SeatingManager::inputRoom()
 {
     std::cout << "\nEnter number of benches: ";
