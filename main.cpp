@@ -6,7 +6,7 @@ int main()
     SeatingManager manager;
 
     std::cout << "========================================\n";
-    std::cout << "     SMART EXAM SEATING SYSTEM\n";
+    std::cout << "      SMART EXAM SEATING SYSTEM\n";
     std::cout << "========================================\n";
 
     manager.inputStudents();

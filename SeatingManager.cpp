@@ -3,7 +3,6 @@
 
 SeatingManager::SeatingManager()
 {
-    numberOfBenches = 0;
 }
 
 void SeatingManager::inputStudents()
@@ -27,20 +26,21 @@ void SeatingManager::inputStudents()
 }
 void SeatingManager::inputRoom()
 {
-    std::cout << "\nEnter number of benches: ";
+    std::string roomNo;
+    int numberOfBenches;
+
+    std::cout << "\nEnter room number: ";
+    std::cin >> roomNo;
+
+    std::cout << "Enter number of benches: ";
     std::cin >> numberOfBenches;
+
+    room = Room(roomNo, numberOfBenches);
 }
 
 bool SeatingManager::checkCapacity() const
 {
-    int capacity = numberOfBenches * STUDENTS_PER_BENCH;
-
-    if (students.size() > capacity)
-    {
-        return false;
-    }
-
-    return true;
+    return students.size() <= room.getCapacity();
 }
 
 void SeatingManager::generateSeating()
@@ -48,7 +48,7 @@ void SeatingManager::generateSeating()
     seats.clear();
 
     // Create all seats
-    for (int i = 0; i < numberOfBenches; i++)
+   for (int i = 0; i < room.getNumberOfBenches(); i++)
     {
         for (int j = 0; j < STUDENTS_PER_BENCH; j++)
         {
@@ -108,8 +108,7 @@ void SeatingManager::displaySeating() const
     std::cout << "\n========================================\n";
     std::cout << "         EXAMINATION SEATING PLAN\n";
     std::cout << "========================================\n";
-
-    for (int i = 0; i < numberOfBenches; i++)
+    for (int i = 0; i < room.getNumberOfBenches(); i++)
     {
         std::cout << "\nBench " << i + 1 << ": ";
 

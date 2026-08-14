@@ -4,17 +4,23 @@
 Room::Room()
 {
     roomNo = "";
-    rows = 0;
-    cols = 0;
+    numberOfBenches = 0;
+    studentsPerBench = 3;
     capacity = 0;
 }
 
-Room::Room(std::string no, int r, int c)
+Room::Room(std::string no, int benches)
 {
     roomNo = no;
-    rows = r;
-    cols = c;
-    capacity = r * c;
+    numberOfBenches = benches;
+    studentsPerBench = 3;
+
+    calculateCapacity();
+}
+
+void Room::calculateCapacity()
+{
+    capacity = numberOfBenches * studentsPerBench;
 }
 
 std::string Room::getRoomNo() const
@@ -22,14 +28,14 @@ std::string Room::getRoomNo() const
     return roomNo;
 }
 
-int Room::getRows() const
+int Room::getNumberOfBenches() const
 {
-    return rows;
+    return numberOfBenches;
 }
 
-int Room::getCols() const
+int Room::getStudentsPerBench() const
 {
-    return cols;
+    return studentsPerBench;
 }
 
 int Room::getCapacity() const
@@ -39,8 +45,8 @@ int Room::getCapacity() const
 
 void Room::display() const
 {
-    std::cout << "Room No: " << roomNo << std::endl;
-    std::cout << "Rows: " << rows << std::endl;
-    std::cout << "Columns: " << cols << std::endl;
-    std::cout << "Capacity: " << capacity << std::endl;
+    std::cout << "\nRoom Number      : " << roomNo << std::endl;
+    std::cout << "Number of Benches: " << numberOfBenches << std::endl;
+    std::cout << "Students/Bench   : " << studentsPerBench << std::endl;
+    std::cout << "Total Capacity   : " << capacity << std::endl;
 }

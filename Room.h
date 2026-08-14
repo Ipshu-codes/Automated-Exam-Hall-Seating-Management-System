@@ -7,17 +7,19 @@ class Room
 {
 private:
     std::string roomNo;
-    int rows;
-    int cols;
+    int numberOfBenches;
+    int studentsPerBench;
     int capacity;
 
 public:
     Room();
-    Room(std::string no, int r, int c);
+    Room(std::string no, int benches);
+
+    void calculateCapacity();
 
     std::string getRoomNo() const;
-    int getRows() const;
-    int getCols() const;
+    int getNumberOfBenches() const;
+    int getStudentsPerBench() const;
     int getCapacity() const;
 
     void display() const;

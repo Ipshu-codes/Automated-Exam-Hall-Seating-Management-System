@@ -4,6 +4,7 @@
 #include <vector>
 #include "Student.h"
 #include "Seat.h"
+#include "Room.h"
 
 class SeatingManager
 {
@@ -11,7 +12,7 @@ private:
     std::vector<Student> students;
     std::vector<Seat> seats;
 
-    int numberOfBenches;
+    Room room;
 
     static const int STUDENTS_PER_BENCH = 3;
 
