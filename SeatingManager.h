@@ -1,5 +1,6 @@
 #ifndef SEATINGMANAGER_H
 #define SEATINGMANAGER_H
+#include "Constraint.h"
 
 #include <vector>
 #include "Student.h"

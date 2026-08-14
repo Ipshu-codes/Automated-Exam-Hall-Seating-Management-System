@@ -18,12 +18,24 @@ void SeatingManager::inputStudents()
 
         std::cout << "\nStudent " << i + 1 << std::endl;
 
-        std::cout << "Enter roll number: ";
-        std::cin >> rollNo;
+        while (true)
+        {
+            std::cout << "Enter roll number: ";
+            std::cin >> rollNo;
+
+            if (Constraint::isValidRollNumber(rollNo))
+            {
+                break;
+            }
+
+            std::cout << "Invalid roll number!\n";
+            std::cout << "Please enter a valid BCT or BEI roll number.\n";
+        }
 
         students.push_back(Student(rollNo));
     }
 }
+
 void SeatingManager::inputRoom()
 {
     std::string roomNo;
@@ -47,8 +59,8 @@ void SeatingManager::generateSeating()
 {
     seats.clear();
 
-    // Create all seats
-   for (int i = 0; i < room.getNumberOfBenches(); i++)
+    // Create seats for every bench
+    for (int i = 0; i < room.getNumberOfBenches(); i++)
     {
         for (int j = 0; j < STUDENTS_PER_BENCH; j++)
         {
@@ -56,7 +68,7 @@ void SeatingManager::generateSeating()
         }
     }
 
-    // Separate students according to department
+    // Separate students by department
     std::vector<Student*> bctStudents;
     std::vector<Student*> beiStudents;
 
@@ -72,42 +84,68 @@ void SeatingManager::generateSeating()
         }
     }
 
-    // Create an alternating seating order
-    std::vector<Student*> arrangedStudents;
-
     int bctIndex = 0;
     int beiIndex = 0;
 
-    while (bctIndex < bctStudents.size() ||
-           beiIndex < beiStudents.size())
+    // Arrange students bench by bench
+    for (int bench = 0; bench < room.getNumberOfBenches(); bench++)
     {
-        // Add BCT student
-        if (bctIndex < bctStudents.size())
+        int baseIndex = bench * STUDENTS_PER_BENCH;
+
+        // Even benches: BCT | BEI | BCT
+        if (bench % 2 == 0)
         {
-            arrangedStudents.push_back(bctStudents[bctIndex]);
-            bctIndex++;
+            if (bctIndex < bctStudents.size())
+            {
+                seats[baseIndex].assignStudent(bctStudents[bctIndex]);
+                bctIndex++;
+            }
+
+            if (beiIndex < beiStudents.size())
+            {
+                seats[baseIndex + 1].assignStudent(beiStudents[beiIndex]);
+                beiIndex++;
+            }
+
+            if (bctIndex < bctStudents.size())
+            {
+                seats[baseIndex + 2].assignStudent(bctStudents[bctIndex]);
+                bctIndex++;
+            }
         }
 
-        // Add BEI student
-        if (beiIndex < beiStudents.size())
+        // Odd benches: BEI | BCT | BEI
+        else
         {
-            arrangedStudents.push_back(beiStudents[beiIndex]);
-            beiIndex++;
-        }
-    }
+            if (beiIndex < beiStudents.size())
+            {
+                seats[baseIndex].assignStudent(beiStudents[beiIndex]);
+                beiIndex++;
+            }
 
-    // Assign students to seats
-    for (int i = 0; i < arrangedStudents.size(); i++)
-    {
-        seats[i].assignStudent(arrangedStudents[i]);
+            if (bctIndex < bctStudents.size())
+            {
+                seats[baseIndex + 1].assignStudent(bctStudents[bctIndex]);
+                bctIndex++;
+            }
+
+            if (beiIndex < beiStudents.size())
+            {
+                seats[baseIndex + 2].assignStudent(beiStudents[beiIndex]);
+                beiIndex++;
+            }
+        }
     }
 }
 
 void SeatingManager::displaySeating() const
 {
+    room.display();
+
     std::cout << "\n========================================\n";
     std::cout << "         EXAMINATION SEATING PLAN\n";
     std::cout << "========================================\n";
+
     for (int i = 0; i < room.getNumberOfBenches(); i++)
     {
         std::cout << "\nBench " << i + 1 << ": ";
