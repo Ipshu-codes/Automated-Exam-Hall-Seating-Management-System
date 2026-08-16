@@ -140,27 +140,67 @@ void SeatingManager::generateSeating()
 
 void SeatingManager::displaySeating() const
 {
-    room.display();
+    std::cout << "\n\n";
+    std::cout << "========================================================\n";
+    std::cout << "              EXAMINATION SEATING PLAN\n";
+    std::cout << "                    ROOM "
+              << room.getRoomNo() << "\n";
+    std::cout << "========================================================\n";
 
-    std::cout << "\n========================================\n";
-    std::cout << "         EXAMINATION SEATING PLAN\n";
-    std::cout << "========================================\n";
+    std::cout << "\n                    FRONT / BOARD\n";
+    std::cout << "                         ^\n\n";
+
+    // Top border
+    std::cout << "          +--------------+--------------+--------------+\n";
 
     for (int i = 0; i < room.getNumberOfBenches(); i++)
     {
-        std::cout << "\nBench " << i + 1 << ": ";
+        std::cout << "Bench " << i + 1 << "   |";
 
         for (int j = 0; j < STUDENTS_PER_BENCH; j++)
         {
             int index = i * STUDENTS_PER_BENCH + j;
 
-            std::cout << "[ ";
+            std::cout << " ";
 
-            seats[index].display();
+            if (seats[index].isOccupied())
+            {
+                Student* student = seats[index].getStudent();
 
-            std::cout << " ] ";
+                std::cout << student->getRollNo();
+
+                // Padding so every cell has equal width
+                int padding = 12 - student->getRollNo().length();
+
+                for (int k = 0; k < padding; k++)
+                {
+                    std::cout << " ";
+                }
+            }
+            else
+            {
+                std::cout << "EMPTY       ";
+            }
+
+            std::cout << " |";
+        }
+
+        std::cout << "\n";
+
+        if (i < room.getNumberOfBenches() - 1)
+        {
+            std::cout << "          +--------------+--------------+--------------+\n";
         }
     }
 
-    std::cout << "\n";
+    std::cout << "          +--------------+--------------+--------------+\n";
+
+    std::cout << "\n              Seat 1        Seat 2        Seat 3\n";
+
+    std::cout << "\n========================================================\n";
+    std::cout << "Students per bench: "
+              << room.getStudentsPerBench() << "\n";
+    std::cout << "Total capacity    : "
+              << room.getCapacity() << "\n";
+    std::cout << "========================================================\n";
 }
