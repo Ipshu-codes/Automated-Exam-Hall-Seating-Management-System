@@ -1,5 +1,6 @@
 #include "SeatingManager.h"
 #include <iostream>
+#include <algorithm>
 
 SeatingManager::SeatingManager()
 {
@@ -12,6 +13,13 @@ void SeatingManager::inputStudents()
     std::cout << "Enter number of students: ";
     std::cin >> numberOfStudents;
 
+    if (numberOfStudents < 1 || numberOfStudents > 48)
+    {
+        std::cout << "\nInvalid number of students!\n";
+        std::cout << "You can enter between 1 and 48 students.\n";
+        return;
+    }
+
     for (int i = 0; i < numberOfStudents; i++)
     {
         std::string rollNo;
@@ -23,19 +31,48 @@ void SeatingManager::inputStudents()
             std::cout << "Enter roll number: ";
             std::cin >> rollNo;
 
-            if (Constraint::isValidRollNumber(rollNo))
+            // STEP 1: Validate roll number
+            if (!Constraint::isValidRollNumber(rollNo))
             {
-                break;
+                std::cout << "\nInvalid roll number!\n";
+                std::cout << "Valid format:\n";
+                std::cout << "THA082BCT001 - THA082BCT048\n";
+                std::cout << "THA082BEI001 - THA082BEI048\n";
+                continue;
             }
 
-            std::cout << "Invalid roll number!\n";
-            std::cout << "Please enter a valid BCT or BEI roll number.\n";
-        }
+            // STEP 2: Check for duplicate
+            bool duplicate = false;
 
-        students.push_back(Student(rollNo));
+            for (const Student& student : students)
+            {
+                std::cout << "Checking: " << student.getRollNo()
+                          << " against " << rollNo << std::endl;
+
+                if (student.getRollNo() == rollNo)
+                {
+                    duplicate = true;
+                    break;
+                }
+            }
+
+            // STEP 3: Reject duplicate
+            if (duplicate)
+            {
+                std::cout << "\nERROR: Duplicate roll number!\n";
+                std::cout << "This roll number has already been entered.\n";
+                continue;
+            }
+
+            // STEP 4: Only add after all checks pass
+            students.push_back(Student(rollNo));
+
+            std::cout << "Roll number accepted!\n";
+
+            break;
+        }
     }
 }
-
 void SeatingManager::inputRoom()
 {
     std::string roomNo;
