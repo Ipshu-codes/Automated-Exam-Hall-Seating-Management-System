@@ -1,125 +1,126 @@
-# Automated-Exam-Hall-Seating-Management-System
+# Smart Exam Hall Seating System
 
-## Overview
+A C++ Object-Oriented Programming project that automatically generates an examination hall seating arrangement for students from the Electronics and Computer department.
 
-The **Automated-Exam-Hall-Seating-Management-System** is a C++ application developed using Object-Oriented Programming (OOP) principles to automate the process of generating exam hall seating arrangements. Instead of manually assigning seats, the system allocates students to available seats while considering predefined constraints such as room capacity, student sections, departments, and seating rules.
-
-The project aims to reduce manual effort, minimize human error, improve room utilization, and create fair seating arrangements that help reduce opportunities for academic misconduct.
+The system is designed specifically for BCT (Computer Engineering) and BEI (Electronics and Communication Engineering) students of batch 082.
 
 ---
 
-## Objectives
+## Objective
 
-* Automate exam seating allocation.
-* Generate fair and optimized seating arrangements.
-* Reduce manual work and administrative errors.
-* Support multiple rooms with different capacities.
-* Demonstrate the practical application of Object-Oriented Programming concepts.
+The objective of this project is to automate examination hall seating while following predefined classroom constraints.
+
+The system validates student roll numbers, prevents duplicate entries, checks room capacity, and generates a balanced seating arrangement between BCT and BEI students.
 
 ---
 
 ## Features
 
-* Student and room management.
-* Automatic seat allocation.
-* Support for multiple examination halls.
-* Room capacity validation.
-* Constraint-based seating generation.
-* Seating chart generation.
-* Seating statistics and room utilization summary.
-* Easily extendable architecture for future enhancements.
+- Accepts the number of students as input
+- Accepts student roll numbers
+- Supports BCT and BEI departments
+- Validates roll number format
+- Allows only batch 082
+- Allows roll numbers from 001 to 048
+- Prevents duplicate roll numbers
+- Supports up to 48 students
+- Allows 3 students per bench
+- Accepts room number and number of benches
+- Automatically checks room capacity
+- Separates BCT and BEI students
+- Alternates departments across benches
+- Displays the seating arrangement in a matrix-style format
 
 ---
 
-## Object-Oriented Concepts Used
+## Roll Number Format
 
-* Classes and Objects
-* Encapsulation
-* Inheritance
-* Polymorphism
-* Abstraction
-* Constructors and Destructors
-* File Handling
-* STL (Vectors, Maps, Algorithms)
-* Exception Handling
+The system uses the roll number format:
+
+    THA082BCT027
+
+Where:
+
+- `THA` = Institute
+- `082` = Batch
+- `BCT` / `BEI` = Engineering department
+- `027` = Student roll number
+
+### Valid Roll Numbers
+
+BCT:
+
+    THA082BCT001 - THA082BCT048
+
+BEI:
+
+    THA082BEI001 - THA082BEI048
+
+The system rejects:
+
+- Incorrect institute code
+- Incorrect batch number
+- Invalid department
+- Roll numbers outside 001–048
+- Incorrect roll number format
+- Duplicate roll numbers
 
 ---
 
-## Proposed Class Structure
+## Seating Constraints
 
-* `Student`
-* `Room`
-* `Seat`
-* `Exam`
-* `SeatingManager`
-* `Constraint` (Abstract Base Class)
-* `DepartmentConstraint`
-* `SectionConstraint`
-* `CapacityConstraint`
+Each bench can accommodate **3 students**.
+
+For a classroom with 16 benches:
+
+    16 × 3 = 48 students
+
+Therefore, the maximum capacity is 48 students.
+
+The program checks whether the selected room has enough seats before generating the seating arrangement.
 
 ---
 
-## Input
+## Seating Arrangement
 
-The system accepts:
+The system separates students according to their departments and alternates their positions between benches.
 
-* Student information
-* Room information
-* Examination details
-* Seating constraints
+### Example
 
-Example:
+Even-numbered benches:
+
+    BCT | BEI | BCT
+
+Odd-numbered benches:
+
+    BEI | BCT | BEI
+
+This helps distribute students from the two departments throughout the examination hall.
+
+---
+
+## Project Structure
+
+The project follows a modular Object-Oriented Programming structure.
 
 ```text
-Student ID
-Name
-Department
-Semester
-Section
-```
-
----
-
-## Output
-
-The system generates:
-
-* Room-wise seating arrangement
-* Student seat allocation
-* Room occupancy summary
-* Seating statistics
-
----
-
-##  Future Enhancements
-
-* Graphical User Interface (GUI)
-* QR code attendance integration
-* PDF seating chart export
-* Database connectivity
-* Teacher dashboard
-* Advanced optimization algorithms
-* Conflict detection and automatic seat swapping
-
----
-
-## Technologies
-
-* C++
-* Object-Oriented Programming
-* Standard Template Library (STL)
-* File Handling
-
----
-
-## Project Status
-
-  Currently under development.
-
-
----
-
-## Author
-
-**Ipshu Upreti**
-Bachelor of Computer Engineering
+Automated-Exam-Hall-Seating-Management-System/
+│
+├── main.cpp
+│
+├── Student.h
+├── Student.cpp
+│
+├── Room.h
+├── Room.cpp
+│
+├── Seat.h
+├── Seat.cpp
+│
+├── Constraint.h
+├── constraint.cpp
+│
+├── SeatingManager.h
+├── SeatingManager.cpp
+│
+└── README.md
